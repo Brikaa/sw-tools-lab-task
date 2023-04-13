@@ -1,6 +1,9 @@
 package com.lab.task.rest;
 
+import java.util.List;
+
 import javax.enterprise.context.RequestScoped;
+import javax.inject.Inject;
 import javax.ws.rs.Consumes;
 import javax.ws.rs.GET;
 import javax.ws.rs.POST;
@@ -9,30 +12,50 @@ import javax.ws.rs.Produces;
 import javax.ws.rs.core.MediaType;
 
 import com.lab.task.model.Calculation;
+import com.lab.task.repo.CalculationRepo;
 
 @Consumes(MediaType.APPLICATION_JSON)
 @Produces(MediaType.APPLICATION_JSON)
 @RequestScoped
 @Path("/")
 public class CalculationService {
+    @Inject
+    private CalculationRepo repo;
+
     public CalculationService() {
     }
 
     @Path("calc")
     @POST
-    public int calculate(Calculation calc) {
-        switch (calc.getOperation()) {
+    public int calculate(Calculation calculation) {
+        int response;
+        switch (calculation.getOperation()) {
             case "+":
-                return calc.getNumber1() + calc.getNumber2();
+                response = calculation.getNumber1() + calculation.getNumber2();
+                break;
             case "-":
-                return calc.getNumber1() - calc.getNumber2();
+                response = calculation.getNumber1() - calculation.getNumber2();
+                break;
             case "*":
-                return calc.getNumber1() * calc.getNumber2();
-            case "/":
-                return calc.getNumber1() / calc.getNumber2();
+                response = calculation.getNumber1() * calculation.getNumber2();
+                break;
+            case "/": {
+                if (calculation.getNumber2() == 0)
+                    throw new IllegalArgumentException("Can't divide by zero");
+                response = calculation.getNumber1() / calculation.getNumber2();
+                break;
+            }
             default:
-                throw new IllegalArgumentException("Unknown operation: " + calc.getOperation());
+                throw new IllegalArgumentException("Unsupported operation");
         }
+        repo.insert(calculation);
+        return response;
+    }
+
+    @Path("calculations")
+    @GET
+    public List<Calculation> getAllCalculations() {
+        return repo.selectAll();
     }
 
     @Path("/")
