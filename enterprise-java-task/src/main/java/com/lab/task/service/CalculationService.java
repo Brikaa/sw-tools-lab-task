@@ -1,4 +1,4 @@
-package com.lab.task.rest;
+package com.lab.task.service;
 
 import java.util.List;
 
@@ -28,28 +28,28 @@ public class CalculationService {
     @Path("calc")
     @POST
     public int calculate(Calculation calculation) {
-        int response;
+        int result;
         switch (calculation.getOperation()) {
             case "+":
-                response = calculation.getNumber1() + calculation.getNumber2();
+                result = calculation.getNumber1() + calculation.getNumber2();
                 break;
             case "-":
-                response = calculation.getNumber1() - calculation.getNumber2();
+                result = calculation.getNumber1() - calculation.getNumber2();
                 break;
             case "*":
-                response = calculation.getNumber1() * calculation.getNumber2();
+                result = calculation.getNumber1() * calculation.getNumber2();
                 break;
             case "/": {
                 if (calculation.getNumber2() == 0)
                     throw new IllegalArgumentException("Can't divide by zero");
-                response = calculation.getNumber1() / calculation.getNumber2();
+                result = calculation.getNumber1() / calculation.getNumber2();
                 break;
             }
             default:
                 throw new IllegalArgumentException("Unsupported operation");
         }
         repo.insert(calculation);
-        return response;
+        return result;
     }
 
     @Path("calculations")
