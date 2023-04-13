@@ -13,7 +13,10 @@ import com.lab.task.model.Calculation;
 @Consumes(MediaType.APPLICATION_JSON)
 @Produces(MediaType.APPLICATION_JSON)
 @RequestScoped
+@Path("/")
 public class CalculationService {
+    public CalculationService() {
+    }
 
     @Path("calc")
     @POST
@@ -32,7 +35,7 @@ public class CalculationService {
         }
     }
 
-    @Path("health")
+    @Path("/")
     @GET
     public String getHealth() {
         return "Up and running";
