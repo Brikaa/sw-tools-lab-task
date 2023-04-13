@@ -27,7 +27,7 @@ public class CalculationService {
 
     @Path("calc")
     @POST
-    public int calculate(Calculation calculation) {
+    public Result calculate(Calculation calculation) {
         int result;
         switch (calculation.getOperation()) {
             case "+":
@@ -49,7 +49,7 @@ public class CalculationService {
                 throw new IllegalArgumentException("Unsupported operation");
         }
         repo.insert(calculation);
-        return result;
+        return new Result(result);
     }
 
     @Path("calculations")
