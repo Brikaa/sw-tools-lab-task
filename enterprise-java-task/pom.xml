@@ -205,38 +205,6 @@
     <finalName>${project.artifactId}</finalName>
     <plugins>
       <plugin>
-        <groupId>com.mycila</groupId>
-        <artifactId>license-maven-plugin</artifactId>
-        <version>${version.com.mycyla.license}</version>
-        <configuration>
-          <header>${basedir}/dist/license.txt</header>
-          <aggregate>true</aggregate>
-          <strictCheck>true</strictCheck>
-          <excludes>
-            <exclude>target/**</exclude>
-            <exclude>.clover/**</exclude>
-            <exclude>**/*.sql</exclude>
-            <exclude>**/LICENSE*</exclude>
-            <exclude>**/license*</exclude>
-            <exclude>petclinic-spring/**</exclude>
-            <exclude>**/jquery*</exclude>
-            <exclude>**/angular*</exclude>
-            <exclude>**/qunit*</exclude>
-            <exclude>**/backbone*</exclude>
-            <exclude>**/lodash*</exclude>
-            <exclude>**/modernizr*</exclude>
-            <exclude>**/yepnope*</exclude>
-            <exclude>**/mobile-nav*</exclude>
-            <exclude>**/*glyphicons*/**</exclude>
-            <exclude>**/*cordova*/**</exclude>
-          </excludes>
-          <encoding>UTF-8</encoding>
-          <headerDefinitions>
-            <headerDefinition>dist/headerdefinition.xml</headerDefinition>
-          </headerDefinitions>
-        </configuration>
-      </plugin>
-      <plugin>
         <groupId>org.apache.maven.plugins</groupId>
         <artifactId>maven-checkstyle-plugin</artifactId>
       </plugin>
